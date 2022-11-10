@@ -20,6 +20,7 @@
             logInDone.value = true;
             createAlert(alerts_div, `Welcome ${data.user.name}!`, 3000, false);
             setTimeout(() => {
+                userStore.incUpdateRender();
                 router.push('/')
             }, 3000);
         }

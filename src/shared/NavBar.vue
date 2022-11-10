@@ -55,10 +55,17 @@
         router.push('/login')
     }
 
+    const logOut = async () => {
+        await userStore.logOut();
+        localStorage.removeItem('user_token');
+        userStore.incUpdateRender();
+        router.push('/')
+    }
+
 </script>
 
 <template>
-    <nav class="bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+    <nav class="bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600 navBar">
         <div class="container flex flex-wrap justify-between items-stretch mx-auto">
         <a href="https://flowbite.com/" class="flex items-center">
             <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo">
@@ -69,16 +76,17 @@
             <button @click="goLogIn()" type="button" class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Log In</button>
         </div>
         <div v-else class="flex md:order-2 gap-2 items-center user-data">
-            <div id="user-info" class="user-info flex items-center gap-2" @click="displayUserOptions()">
+            <div id="user-info" class="user-info flex items-center gap-2 justify-between" @click="displayUserOptions()">
                 <img  class="user-icon" src="../assets/user-icon.png" alt="User Icon">
                 <span class="items-center username">{{userStore.loggedUser?.name}}</span>
+                <img src="../assets/arrow-down.png" class="arrow-options" id="arrow-options">
             </div>
             <div class="user-options">
-                <span>Log Out</span>
+                <span @click="logOut()">Log Out</span>
             </div>
         </div>
         <div class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-          <ul class="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul class="flex flex-col p-4 mt-4 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
             <li v-for="navLink in navLinks">
                 <router-link :to="navLink.path">{{ navLink.name }}</router-link>
             </li>
@@ -91,7 +99,12 @@
 
 <style scoped>
     li a {
-        font-size: 24px;
+        font-size: 20px;
+        color: white;
+    }
+
+    li a:hover {
+        color: rgb(175, 111, 202);
     }
 
     .user-icon {
@@ -108,12 +121,12 @@
 
     .user-options {
         margin-top: 10px;
-        border: 2px solid black;
-        border-radius: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.478);
+        border-radius: 5px;
         position: absolute;
         width: 100%;
+        top: 35px;
         display: flex;
-        bottom: 5px;
         flex-direction: column;
         overflow: hidden;
         max-height: 0;
@@ -124,12 +137,27 @@
       
     .user-options span {
         padding: 10px 20px;
-        font-size: 14px;
+        font-size: 16px;
         cursor: pointer;
+    }
+
+    .user-options span:hover {
+        background-color: rgb(226, 217, 217);
     }
 
     .user-info {
         cursor: pointer;
+        color: white;
+        min-width: 150px;
     }
+
+    .navBar {
+        background-color: black;
+    }
+
+    .arrow-options {
+        width: 25px;
+      }
+      
 
 </style>
