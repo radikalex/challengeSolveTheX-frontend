@@ -7,9 +7,14 @@
 <template>
   <NavBar />
 
-  <router-view></router-view>
+  <main>
+    <router-view></router-view>
+  </main>
+
 </template>
 
 <style scoped>
-
+  main {
+    margin-top: 80px;
+  }
 </style>
