@@ -6,6 +6,4 @@ export default interface Book {
     num_pages: number;
     price:     number;
     AuthorId:  number;
-    createdAt: Date;
-    updatedAt: Date;
 }

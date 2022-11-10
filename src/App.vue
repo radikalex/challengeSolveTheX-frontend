@@ -5,7 +5,9 @@
 </script>
 
 <template>
-  <NavBar />
+  <header>
+    <NavBar />
+  </header>
 
   <main>
     <router-view></router-view>
@@ -14,7 +16,4 @@
 </template>
 
 <style scoped>
-  main {
-    margin-top: 80px;
-  }
 </style>

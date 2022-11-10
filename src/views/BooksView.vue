@@ -34,7 +34,9 @@ export default defineComponent({
 
 <style scoped>
     .books-container {
+        align-self: center;
         display: flex;
         flex-wrap: wrap;
+        width: 80%;
     }
 </style>

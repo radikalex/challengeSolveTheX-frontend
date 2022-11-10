@@ -1,6 +1,6 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
 import Book from "../interfaces/Book"
-// import { generateID, sleep } from './../utils';
+import Author from '../interfaces/Author';
 import axios from "axios"
 interface BookState {
     books: Book[];
@@ -13,16 +13,13 @@ export const useBookStore = defineStore({
         books: [],
         loading: false,
     }),
-    //   persist: {
-    //     paths: ['tasks'],
-    //   },
     getters: {},
     actions: {
         async getBooks(): Promise<void> {
             this.loading = true;
             const res = await axios.get(`${API_URL}/books`, {
                 headers: {
-                    authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY4MDg2ODYwfQ.zO-aI57szFW9SdoL2ZOwX6ySDckCJPr1w6cBjK5YZDQ"
+                    authorization: localStorage.getItem('user_token')
                 }
             })
             this.books = res.data.books
@@ -32,30 +29,24 @@ export const useBookStore = defineStore({
             this.loading = true;
             const res = await axios.post(`${API_URL}/`,book,{
                 headers: {
-                    authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY4MDg2ODYwfQ.zO-aI57szFW9SdoL2ZOwX6ySDckCJPr1w6cBjK5YZDQ"
+                    authorization: localStorage.getItem('user_token')
                 }
             })
             res.data.book
             this.books = [...this.books, book]
             this.loading = false;
         },
-        // async deleteTask(id: string): Promise<void> {
-        //   this.loading = true;
-        //   this.tasks = this.tasks.filter((task) => task.id !== id);
-        //   await sleep(1000);
-        //   this.loading = false;
-        // },
-        // async updateTask(id: string): Promise<void> {
-        //   this.loading = true;
-        //   const task = this.tasks.find((task) => task.id === id);
-
-        //   if (task) {
-        //     task.done = !task.done;
-        //   }
-
-        //   await sleep(1000);
-        //   this.loading = false;
-        // },
+        async getAuthorById(id: number): Promise<Author> {
+            this.loading = true;
+            const res = await axios.get(`${API_URL}/authors/id/${id}`, {
+                headers: {
+                    authorization: localStorage.getItem('user_token')
+                }
+            })
+            
+            this.loading = false;
+            return res.data.author;
+        }
     },
 });
 

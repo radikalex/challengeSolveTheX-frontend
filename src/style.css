@@ -4,7 +4,26 @@
 
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-
+  --header-height: 76px;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+}
+
+header {
+  height: var(--header-height);
+}
+
+main {
+  min-height: calc(100% - var(--header-height));
+  display: flex;
+  align-items: center;
 }
