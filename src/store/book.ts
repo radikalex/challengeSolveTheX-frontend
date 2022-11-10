@@ -25,6 +25,18 @@ export const useBookStore = defineStore({
             this.books = res.data.books
             this.loading = false;
         },
+
+        async getBooksFilterByName(name: string): Promise<void> {
+            this.loading = true;
+            const res = await axios.get(`${API_URL}/books/getBooksFilterName?name=${name}`, {
+                headers: {
+                    authorization: localStorage.getItem('user_token')
+                }
+            })
+            this.books = res.data.books
+            this.loading = false;
+        },
+
         async createBook(book: Book): Promise<void> {
             this.loading = true;
             const res = await axios.post(`${API_URL}/`,book,{

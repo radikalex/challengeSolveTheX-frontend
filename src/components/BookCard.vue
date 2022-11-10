@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { useBookStore } from '../store/book';
-    import { ref, onMounted } from 'vue'
+    import { ref, onBeforeMount } from 'vue'
     import Author from '../interfaces/Author';
 
     const props = defineProps({
@@ -10,7 +10,7 @@
     let author_name = ref('');
     const bookStore = useBookStore();
 
-    onMounted(async () => {
+    onBeforeMount(async () => {
         const author: Author = await bookStore.getAuthorById(props.book!.AuthorId);
         author_name.value = author.name;
     })
