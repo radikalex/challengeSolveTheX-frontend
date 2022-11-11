@@ -4,6 +4,7 @@ import BooksView from '../views/BooksView.vue';
 import AboutView from '../views/AboutView.vue';
 import SignUpView from '../views/SignUpView.vue';
 import LogInView from '../views/LogInView.vue';
+import CartViewVue from '../views/CartView.vue';
 
 export const routes: RouteRecordRaw[] = [
     {
@@ -30,6 +31,11 @@ export const routes: RouteRecordRaw[] = [
         path: '/login',
         name: 'Log In',
         component: LogInView
+    }, 
+    {
+        path: '/cart',
+        name: 'Cart',
+        component: CartViewVue
     }, 
     {
         path: '/:pathMatch(.*)*',

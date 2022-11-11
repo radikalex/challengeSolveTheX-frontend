@@ -23,8 +23,37 @@ export const useBookStore = defineStore({
     }),
     getters: {},
     actions: {
+        getCartTotalPrice(): number {
+            return this.cart.length > 0 ? this.cart.map(item => item.amount*item.book.price).reduce((a, b) => a + b) : 0;
+        },
+
         getNumberBooksCart(): number {
             return this.cart.length > 0 ? this.cart.map(item => item.amount).reduce((a,b) => a + b) : 0;
+        },
+
+        deleteProductCart(id: number): void {
+            this.cart = this.cart.filter(item => item.book.id !== id)
+        },
+
+        async makeOrder(): Promise<void> {
+            const products = [];
+
+            for (const item of this.cart) {
+                products.push( {"id": item.book.id, "amount": item.amount} );
+            }
+
+            const body = {
+                "status": "On the way",
+                "books": products
+            }
+              
+            const res = await axios.post(`http://localhost:3000/orders`, body, {
+                headers: {
+                    authorization: localStorage.getItem('user_token')
+                }
+            });
+
+            this.cart = [];
         },
 
         async getBooks(): Promise<void> {
@@ -60,6 +89,7 @@ export const useBookStore = defineStore({
             this.books = [...this.books, book]
             this.loading = false;
         },
+
         async getAuthorById(id: number): Promise<Author> {
             this.loading = true;
             const res = await axios.get(`${API_URL}/authors/id/${id}`, {

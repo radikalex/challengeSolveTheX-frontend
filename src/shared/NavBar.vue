@@ -60,6 +60,10 @@
         router.push('/login')
     }
 
+    const goCart = () => {
+        router.push('/cart')
+    }
+
     const logOut = async () => {
         await userStore.logOut();
         localStorage.removeItem('user_token');
@@ -92,7 +96,7 @@
                     <span @click="logOut()">Log Out</span>
                 </div>
             </div>
-            <div class="cart-area">
+            <div class="cart-area" @click="goCart()" >
                 <span class="num-products" id="num-products">{{ bookStore.getNumberBooksCart() }}</span>
                 <img src="../assets/cart-icon.png" class="cart-img">
             </div>
