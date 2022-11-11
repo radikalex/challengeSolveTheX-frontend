@@ -48,6 +48,7 @@ export default defineComponent({
         </form>
         <div class="books-container">
             <BookCard v-for="book in bookStore.books" :book="book" />
+            <p class="mt-3" v-if="bookStore.books.length === 0">No books found...</p>
         </div>
     </div>
 

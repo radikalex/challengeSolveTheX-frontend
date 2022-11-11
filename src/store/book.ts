@@ -4,17 +4,29 @@ import Author from '../interfaces/Author';
 import axios from "axios"
 interface BookState {
     books: Book[];
+    cart: CartItem[];
     loading: boolean;
 }
+
+interface CartItem {
+    book: Book,
+    amount: number
+}
+
 const API_URL = "http://localhost:3000"
 export const useBookStore = defineStore({
     id: 'Book',
     state: (): BookState => ({
         books: [],
+        cart: [],
         loading: false,
     }),
     getters: {},
     actions: {
+        getNumberBooksCart(): number {
+            return this.cart.length > 0 ? this.cart.map(item => item.amount).reduce((a,b) => a + b) : 0;
+        },
+
         async getBooks(): Promise<void> {
             this.loading = true;
             const res = await axios.get(`${API_URL}/books`, {

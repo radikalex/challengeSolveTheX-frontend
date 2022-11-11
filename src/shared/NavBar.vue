@@ -1,10 +1,13 @@
 <script setup lang="ts">
     import router  from '../router/index';
     import { useUserStore } from '../store/user';
+    import { useBookStore } from '../store/book';
     import { ref, onBeforeMount } from 'vue';
 
     let autenticated = ref(false)
     const userStore = useUserStore();
+    const bookStore = useBookStore();
+
 
     onBeforeMount(async () => {
         const token: string | null = localStorage.getItem('user_token');
@@ -18,17 +21,19 @@
     })
 
     function displayUserOptions() {
-        const div: HTMLElement | null = document.getElementById("user-info");
-        const content = div!.nextElementSibling;
+        const div = document.getElementById("user-info") as HTMLElement;;
+        const content = div!.nextElementSibling as HTMLElement;
+        const img = document.getElementById('arrow-options') as HTMLImageElement;
         
-        // const img = document.getElementById('arrow-options');
-
-        if (content!.style.maxHeight) {
-            // img.src = "./assets/arrow-down.png";
-            content!.style.maxHeight = null;
-        } else {
-            // img.src = "./assets/arrow-up.png";
-            content!.style.maxHeight = content!.scrollHeight + "px";
+        
+        if(content != null) {
+            if (content!.style.maxHeight) {
+                img.src = "/src/assets/arrow-down.png";
+                content!.style.maxHeight = '';
+            } else {
+                img.src = "/src/assets/arrow-up.png";
+                content!.style.maxHeight = content!.scrollHeight + "px";
+            }
         }
     }
 
@@ -75,14 +80,21 @@
             <button @click="goSignUp()" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign Up</button>
             <button @click="goLogIn()" type="button" class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Log In</button>
         </div>
-        <div v-else class="flex md:order-2 gap-2 items-center user-data">
-            <div id="user-info" class="user-info flex items-center gap-2 justify-between" @click="displayUserOptions()">
-                <img  class="user-icon" src="../assets/user-icon.png" alt="User Icon">
-                <span class="items-center username">{{userStore.loggedUser?.name}}</span>
-                <img src="../assets/arrow-down.png" class="arrow-options" id="arrow-options">
+        <div v-else class="flex md:order-2 gap-2 items-center">
+            <div class="user-data">
+                <div id="user-info" class="user-info flex items-center gap-2 justify-between" @click="displayUserOptions()">
+                    <img  class="user-icon" src="../assets/user-icon.png" alt="User Icon">
+                    <span class="items-center username">{{userStore.loggedUser?.name}}</span>
+                    <img src="../assets/arrow-down.png" class="arrow-options" id="arrow-options">
+                </div>
+                <div class="user-options">
+                    <span >My Orders</span>
+                    <span @click="logOut()">Log Out</span>
+                </div>
             </div>
-            <div class="user-options">
-                <span @click="logOut()">Log Out</span>
+            <div class="cart-area">
+                <span class="num-products" id="num-products">{{ bookStore.getNumberBooksCart() }}</span>
+                <img src="../assets/cart-icon.png" class="cart-img">
             </div>
         </div>
         <div class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
@@ -125,7 +137,7 @@
         border-radius: 5px;
         position: absolute;
         width: 100%;
-        top: 35px;
+        top: 25px;
         display: flex;
         flex-direction: column;
         overflow: hidden;
@@ -157,6 +169,35 @@
 
     .arrow-options {
         width: 25px;
+    }
+
+    .cart-img {
+        width: 25px;
+    }
+
+    .num-products {
+        background-color: red;
+        color: white;
+        font-weight: 400;
+        position: absolute;
+        height: 18px;
+        width: 18px;
+        border-radius: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 0px;
+        top: 5px;
+    }
+
+    .cart-area {
+        position: relative;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
       }
       
 

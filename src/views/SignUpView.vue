@@ -59,6 +59,7 @@
     <div class="flex justify-center flex-auto">
         <div class="sign-up">
             <form  @submit.prevent="signUp">
+                <h1 class="font-bold text-5xl text-center mb-5">Sign Up</h1>
                 <div id="signUp-alerts"></div>
                 <div class="mb-6">
                     <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your name</label>
@@ -91,7 +92,7 @@
     .sign-up {
         border: 2px solid black;
         width: 60%;
-        padding: 5%;
+        padding: 3% 5%;
         border-radius: 20px;
         height: 100%;
     }

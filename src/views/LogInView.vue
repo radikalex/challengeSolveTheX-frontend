@@ -2,8 +2,10 @@
     import { ref } from 'vue'
     import router  from '../router/index';
     import { useUserStore } from '../store/user';
+    import { useBookStore } from '../store/book';
 
     const userStore = useUserStore();
+    const bookStore = useBookStore();
     const logInDone = ref(false);
     const email = ref('');
     const pass = ref('');
@@ -20,6 +22,7 @@
             logInDone.value = true;
             createAlert(alerts_div, `Welcome ${data.user.name}!`, 3000, false);
             setTimeout(() => {
+                bookStore.cart = []
                 userStore.incUpdateRender();
                 router.push('/')
             }, 3000);
@@ -49,6 +52,7 @@
     <div class="flex justify-center flex-1">
         <div class="log-in">
             <form @submit.prevent="logIn">
+                <h1 class="font-bold text-5xl text-center mb-5">Log In</h1>
                 <div id="logIn-alerts"></div>
                 <div class="mb-6">
                   <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>
@@ -60,7 +64,7 @@
                 </div>
                 <div class="flex items-start mb-6">
                   <div class="flex items-center h-5">
-                    <p class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">You do not have an account? Sign up <router-link class="here" to="/login">here</router-link>.</p>
+                    <p class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">You do not have an account? Sign up <router-link class="here" to="/signup">here</router-link>.</p>
                   </div>
                 </div>
                 <button type="submit" :disabled="logInDone" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
@@ -74,7 +78,7 @@
 .log-in {
     border: 2px solid black;
     width: 60%;
-    padding: 5%;
+    padding: 3% 5%;
     border-radius: 20px;
     height: 100%;
 }
