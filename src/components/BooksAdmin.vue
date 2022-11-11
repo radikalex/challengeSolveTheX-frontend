@@ -28,6 +28,8 @@
             author.value = book.AuthorId;
         }
         else {
+            const input = document.getElementById('file_input') as HTMLInputElement;
+            input.value = "";
             book_id = 0;
             name.value = "";
             genre.value  = "";
@@ -51,6 +53,8 @@
     const createBook = async () => {
         await bookStore.createBook(name.value, genre.value, num_pages.value, +price.value, author.value, img_book.value)
         await bookStore.getBooks();
+        const input = document.getElementById('file_input') as HTMLInputElement;
+        input.value = "";
         book_id = 0;
         name.value = "";
         genre.value  = "";
