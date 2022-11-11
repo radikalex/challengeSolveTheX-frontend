@@ -56,7 +56,7 @@
 
 <template>
 
-    <div class="flex justify-center flex-auto">
+    <div class="container-signup">
         <div class="sign-up">
             <form  @submit.prevent="signUp">
                 <h1 class="font-bold text-5xl text-center mb-5">Sign Up</h1>
@@ -89,12 +89,20 @@
 </template>
 
 <style scoped>
+    .container-signup {
+        height: 94vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url(../assets/books_home.jpg);
+        opacity: 1;
+    }
     .sign-up {
         border: 2px solid black;
         width: 60%;
         padding: 3% 5%;
         border-radius: 20px;
-        height: 100%;
+        background-color: whitesmoke;
     }
 
     .here {

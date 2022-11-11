@@ -24,7 +24,7 @@
             setTimeout(() => {
                 bookStore.cart = []
                 userStore.incUpdateRender();
-                router.push('/')
+                router.push('/books')
             }, 3000);
         }
     };
@@ -49,7 +49,7 @@
 
 <template>
 
-    <div class="flex justify-center flex-1">
+    <div class="container-login">
         <div class="log-in">
             <form @submit.prevent="logIn">
                 <h1 class="font-bold text-5xl text-center mb-5">Log In</h1>
@@ -75,12 +75,20 @@
 </template>
 
 <style scoped>
+.container-login {
+    height: 94vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../assets/books_home.jpg);
+    opacity: 1;
+}
 .log-in {
     border: 2px solid black;
     width: 60%;
     padding: 3% 5%;
     border-radius: 20px;
-    height: 100%;
+    background-color: whitesmoke;
 }
 
 .here {

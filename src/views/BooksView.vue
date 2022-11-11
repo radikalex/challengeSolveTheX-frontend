@@ -14,7 +14,6 @@ export default defineComponent({
         const search = ref('');
 
         const searchBooksByName = () => {
-            console.log("entra search");
             
             if(search.value.trim() === "")
                 bookStore.getBooks()

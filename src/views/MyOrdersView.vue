@@ -14,7 +14,7 @@ import { useBookStore } from '../store/book';
 
     <div class="flex justify-center flex-col">
         <h1 class="font-bold text-5xl text-center mb-5 mt-10">My Orders</h1>
-        <div v-if="userStore.orders.length === 0">
+        <div v-if="userStore.orders.length === 0" class="flex justify-center">
             <p>You didn't make any order yet.</p>
         </div>
         <div v-else class="flex justify-center">
@@ -40,7 +40,13 @@ import { useBookStore } from '../store/book';
 </template>
 
 <style scoped>
+  .agdf {
+    height: 94vh;
+    background-image: url(../assets/books_home.jpg);
+    opacity: 1;
+  }
   .orders-container {
+    background-color: whitesmoke;
     width: 70%;
   }
   .order {

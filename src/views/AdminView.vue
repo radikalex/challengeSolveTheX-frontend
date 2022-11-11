@@ -1,11 +1,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useAuthorStore } from '../store/author';
+import { useBookStore } from '../store/book';
 import { onBeforeMount, ref } from 'vue'
 import AuthorAdmin from '../components/AuthorAdmin.vue'
 import BooksAdmin from '../components/BooksAdmin.vue'
-import OrderAdmin from '../components/OrderAdmin.vue'
-import UserAdmin from '../components/UserAdmin.vue'
 
 export default defineComponent({
     components: {
@@ -18,9 +17,11 @@ export default defineComponent({
         const admin_pageName = ref('Books');
         const numberAdminPages = 2;
         const authorStore = useAuthorStore();
+        const bookStore = useBookStore();
 
         onBeforeMount(() => {
             authorStore.getAllAuthors();
+            bookStore.getBooks();
         })
 
         const switchPageName = () => {
@@ -57,7 +58,7 @@ export default defineComponent({
 <template>
 
     <div class="flex justify-center flex-col">
-        <div class="flex gap-20 justify-center items-center my-10">
+        <div class="flex gap-20 justify-center items-center my-10 headerAdmin">
             <img @click="previousPage()" src="../assets/left-arrow.png" alt="Left Arrow" class="admin-arrows">
             <h1 class="font-bold text-5xl text-center">Admin View: {{ admin_pageName }} </h1>
             <img @click="nextPage()" src="../assets/right-arrow.png" alt="Right Arrow" class="admin-arrows">
@@ -75,5 +76,10 @@ export default defineComponent({
         width: 70px;
         height: 40px;
         cursor: pointer;
+    }
+
+    .headerAdmin {
+        padding-bottom: 20px;
+        border-bottom: 1px dotted rgba(83, 81, 81, 0.365);
     }
 </style>

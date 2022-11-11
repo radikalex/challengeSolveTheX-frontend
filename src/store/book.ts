@@ -1,6 +1,5 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
 import Book from "../interfaces/Book"
-import Author from '../interfaces/Author';
 import axios from "axios"
 interface BookState {
     books: Book[];
@@ -78,29 +77,71 @@ export const useBookStore = defineStore({
             this.loading = false;
         },
 
-        async createBook(book: Book): Promise<void> {
+        async createBook(name: string, genre: string,  num_pages: number, price: number, AuthorId: number, img_book: File): Promise<void> {
             this.loading = true;
-            const res = await axios.post(`${API_URL}/`,book,{
-                headers: {
-                    authorization: localStorage.getItem('user_token')
-                }
-            })
-            res.data.book
-            this.books = [...this.books, book]
-            this.loading = false;
-        },
 
-        async getAuthorById(id: number): Promise<Author> {
-            this.loading = true;
-            const res = await axios.get(`${API_URL}/authors/id/${id}`, {
+            const formData = new FormData();
+            formData.append("name", name);
+            formData.append("genre", genre);
+            formData.append("num_pages", num_pages.toString());
+            formData.append("price", price.toString());
+            formData.append("AuthorId", AuthorId.toString());
+            formData.append("img_book", img_book);
+
+            const res = await axios.post(`${API_URL}/books`, formData, {
                 headers: {
                     authorization: localStorage.getItem('user_token')
                 }
             })
             
             this.loading = false;
-            return res.data.author;
-        }
+        },
+
+        async getBookById(id: number): Promise<Book> {
+            this.loading = true;
+            const res = await axios.get(`${API_URL}/books/id/${id}`, {
+                headers: {
+                    authorization: localStorage.getItem('user_token')
+                }
+            })
+            
+            this.loading = false;
+            return res.data.book;
+        },
+        
+
+        async updateBookById(id: number, name: string, genre: string,  num_pages: number, price: number, AuthorId: number, img_book: File): Promise<void> {
+            this.loading = true;
+
+            const formData = new FormData();
+            formData.append("name", name);
+            formData.append("genre", genre);
+            formData.append("num_pages", num_pages.toString());
+            formData.append("price", price.toString());
+            formData.append("AuthorId", AuthorId.toString());
+            formData.append("img_book", img_book);
+
+            await axios.put(`${API_URL}/books/id/${id}`, formData ,{
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    authorization: localStorage.getItem('user_token')
+                }
+            })
+            
+            this.loading = false;
+        },
+
+        async deleteBookById(id: number): Promise<void> {
+            this.loading = true;
+
+            await axios.delete(`${API_URL}/books/id/${id}`, {
+                headers: {
+                    authorization: localStorage.getItem('user_token')
+                }
+            })
+            
+            this.loading = false;
+        },
     },
 });
 

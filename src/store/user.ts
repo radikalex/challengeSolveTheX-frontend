@@ -59,6 +59,7 @@ export const useUserStore = defineStore({
                     authorization: localStorage.getItem('user_token')
                 }
             });
+            this.loggedUser = null;
             this.loading = false;
             return res.data;
         },

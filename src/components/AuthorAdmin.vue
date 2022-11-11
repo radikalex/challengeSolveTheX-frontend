@@ -20,6 +20,7 @@
             genre.value = author.genre;
         }
         else {
+            author_id = 0;
             name.value = "";
             age.value = null;
             genre.value = "female";
@@ -38,7 +39,11 @@
     }
 
     const createAuthor = async () => {
-        await authorStore.createAuthor(name.value, age.value, genre.value)
+        await authorStore.createAuthor(name.value, age.value, genre.value);
+        author_id = 0;
+        name.value = "";
+        age.value = null;
+        genre.value = "female";
     }
 
 </script>

@@ -1,25 +1,12 @@
 <script setup lang="ts">
     import { useBookStore } from '../store/book';
-    import { useAuthorStore } from '../store/author';
-    import { ref, onBeforeMount } from 'vue'
-    import Author from '../interfaces/Author';
     import Book from '../interfaces/Book';
 
     const props = defineProps({
         book: { type: Object}
     })
 
-    let author_name = ref('');
     const bookStore = useBookStore();
-    const authorStore = useAuthorStore();
-
-    onBeforeMount(async () => {
-        const author: Author = await authorStore.getAuthorById(props.book!.AuthorId);
-        if(author)
-            author_name.value = author.name;
-        else
-            author_name.value = "Unknown";
-    })
 
     const addProductToCart = () => {
         let found: Boolean = false;
@@ -41,6 +28,7 @@
             num_pages: props.book!.num_pages,
             genre: props.book!.genre,
             AuthorId: props.book!.AuthorId,
+            Author: props.book!.Author
         }
 
         if(!found) {
@@ -61,7 +49,7 @@
             <div class="flex flex-col"><span class="font-bold">Price:</span> {{ book!.price }}$ </div>
             <div class="flex flex-col"><span class="font-bold">Number of pages:</span> {{ book!.num_pages }} </div>
             <div class="flex flex-col"><span class="font-bold">Genre:</span> {{ book!.genre }} </div>
-            <div class="flex flex-col"><span class="font-bold">Author:</span> {{ author_name }} </div>
+            <div class="flex flex-col"><span class="font-bold">Author:</span> {{ book!.Author !== null ? book!.Author.name : "Unknown"}} </div>
         </div>
         <div class="flex justify-center border-t-4 border-black-500">
             <button @click="addProductToCart()" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 my-2 text-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add to cart</button>

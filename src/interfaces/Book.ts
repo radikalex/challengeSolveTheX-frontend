@@ -6,4 +6,12 @@ export default interface Book {
     num_pages: number;
     price:     number;
     AuthorId:  number;
+    Author:    AuthorBook;
+}
+
+export interface AuthorBook {
+    id:        number;
+    name:      string;
+    age:       number;
+    genre:     string;
 }
