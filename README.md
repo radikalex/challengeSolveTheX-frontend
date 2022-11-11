@@ -21,6 +21,9 @@ This project has been carried out as a result of a challenge proposed by "Solve 
 3 - At this time the backend server should be up and with the seeders on. 
 If the backend server is not up, the frontend will not work as it should.
 
+4 - You need to start the front end server with the following command
+> npm run dev
+
 ## 📜 Comments about the project
 
 - Some Vue Router Navigation Guards have been implemented. This makes it impossible to access certain tabs without being authenticated.
