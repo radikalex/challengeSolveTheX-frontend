@@ -1,16 +1,42 @@
-# Vue 3 + TypeScript + Vite
+# 💻 Challenge Solve The X | Frontend
+This project has been carried out as a result of a challenge proposed by "Solve the X". The project consists of a frontend with Vue and a backend with Node and Express. This repository corresponds to the frontend. The backend is in [this repository](https://github.com/radikalex/challengeSolveTheX-backend).
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 🦾 Used technology 
+- Vue 3
+- Typescript
+- Pinia
+- Vite
+- Flowbite (Tailwind)
+- Axios
 
-## Recommended IDE Setup
+## Previews
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+# Home
 
-## Type Support For `.vue` Imports in TS
+![image](/assets/preview-home.png)
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+# Sign Up and Log In
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+![image](/assets/preview-signup.png)
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+![image](/assets/preview-login.png)
+
+# Books
+
+![image](/assets/preview_books.gif)
+
+# Cart
+
+![image](/assets/preview_cart.gif)
+
+# My Orders
+
+![image](/assets/preview_books.gif)
+
+# Admin View
+
+![image](/assets/preview_author_admin.gif)
+
+![image](/assets/preview_book_admin.gif)
+
+Made by [Alex Jiménez](https://github.com/radikalex) 😁
