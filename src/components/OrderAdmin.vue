@@ -5,11 +5,11 @@
 <template>
 
     <div class="flex justify-center">
-        <h1>About</h1>
+        <h1>Orders</h1>
     </div>
 
 </template>
 
 <style scoped>
-    
+
 </style>

@@ -45,11 +45,7 @@
         {
             name: "Books",
             path: "/books"
-        },
-        {
-            name: "About us",
-            path: "/about"
-        },
+        }
     ];
 
     const goSignUp = () => {
@@ -58,6 +54,10 @@
 
     const goLogIn = () => {
         router.push('/login')
+    }
+
+    const goAdmin = () => {
+        router.push('/admin')
     }
 
     const goMyOrders = () => {
@@ -90,6 +90,9 @@
             <button @click="goLogIn()" type="button" class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Log In</button>
         </div>
         <div v-else class="flex md:order-2 gap-2 items-center">
+            <div v-if="userStore.loggedUser?.role === 'admin'" class="admin">
+                <button type="button" @click="goAdmin()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Admin Page</button>
+            </div>
             <div class="user-data">
                 <div id="user-info" class="user-info flex items-center gap-2 justify-between" @click="displayUserOptions()">
                     <img  class="user-icon" src="../assets/user-icon.png" alt="User Icon">
