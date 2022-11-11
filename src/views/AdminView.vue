@@ -1,7 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useBookStore } from '../store/book';
-import { useUserStore } from '../store/user';
+import { useAuthorStore } from '../store/author';
 import { onBeforeMount, ref } from 'vue'
 import AuthorAdmin from '../components/AuthorAdmin.vue'
 import BooksAdmin from '../components/BooksAdmin.vue'
@@ -11,18 +10,17 @@ import UserAdmin from '../components/UserAdmin.vue'
 export default defineComponent({
     components: {
         AuthorAdmin,
-        BooksAdmin,
-        OrderAdmin,
-        UserAdmin
+        BooksAdmin
     },
 
     setup() {
         const admin_page = ref(0);
-        const admin_pageName = ref('Books')
-        const numberAdminPages = 4;
+        const admin_pageName = ref('Books');
+        const numberAdminPages = 2;
+        const authorStore = useAuthorStore();
 
         onBeforeMount(() => {
-            
+            authorStore.getAllAuthors();
         })
 
         const switchPageName = () => {
@@ -32,12 +30,6 @@ export default defineComponent({
                     break;
                 case 1:
                     admin_pageName.value = "Authors";
-                    break;
-                case 2:
-                    admin_pageName.value = "Users";
-                    break;
-                case 3:
-                    admin_pageName.value = "Orders";
                     break;
             }
         } 
@@ -73,8 +65,6 @@ export default defineComponent({
 
         <BooksAdmin v-if="admin_page === 0" />
         <AuthorAdmin v-if="admin_page === 1" />
-        <UserAdmin v-if="admin_page === 2" />
-        <OrderAdmin v-if="admin_page === 3" />
 
     </div>
 

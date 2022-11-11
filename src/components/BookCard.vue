@@ -1,5 +1,6 @@
 <script setup lang="ts">
     import { useBookStore } from '../store/book';
+    import { useAuthorStore } from '../store/author';
     import { ref, onBeforeMount } from 'vue'
     import Author from '../interfaces/Author';
     import Book from '../interfaces/Book';
@@ -10,10 +11,14 @@
 
     let author_name = ref('');
     const bookStore = useBookStore();
+    const authorStore = useAuthorStore();
 
     onBeforeMount(async () => {
-        const author: Author = await bookStore.getAuthorById(props.book!.AuthorId);
-        author_name.value = author.name;
+        const author: Author = await authorStore.getAuthorById(props.book!.AuthorId);
+        if(author)
+            author_name.value = author.name;
+        else
+            author_name.value = "Unknown";
     })
 
     const addProductToCart = () => {
