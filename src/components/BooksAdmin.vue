@@ -51,6 +51,12 @@
     const createBook = async () => {
         await bookStore.createBook(name.value, genre.value, num_pages.value, +price.value, author.value, img_book.value)
         await bookStore.getBooks();
+        book_id = 0;
+        name.value = "";
+        genre.value  = "";
+        num_pages.value  = null;
+        price.value  = "";
+        author.value = 0;
     }
 
     const inputFileChange = () => {
@@ -98,9 +104,9 @@
                         </select>
                     </div>
                     <div class="flex justify-end gap-3">
-                        <button type="button" @click="goEdit(false, 0)" v-if="!newBook" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Go form - Add new author</button>
+                        <button type="button" @click="goEdit(false, 0)" v-if="!newBook" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Go form - Add new book</button>
                         <button type="button" @click="updateBook()" v-if="!newBook" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Edit</button>
-                        <button type="button" @click="createBook()" v-if="newBook" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create new author</button>
+                        <button type="button" @click="createBook()" v-if="newBook" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create new book</button>
                     </div>
                   </form>
             </div>
