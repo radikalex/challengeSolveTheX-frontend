@@ -1,9 +1,11 @@
 import { defineStore, acceptHMRUpdate } from 'pinia';
 import User from "../interfaces/User"
+import Order from "../interfaces/Order"
 import axios from "axios"
 
 interface UserState {
     loggedUser: User | null,
+    orders: Order[];
     loading: boolean;
     updateRender: number
 }
@@ -13,6 +15,7 @@ export const useUserStore = defineStore({
     id: 'User',
     state: (): UserState => ({
         loggedUser: null,
+        orders: [],
         loading: false,
         updateRender: 0
     }),
@@ -21,6 +24,22 @@ export const useUserStore = defineStore({
         incUpdateRender() {
             this.updateRender++;
         },
+
+        getOrderTotalPrice(order: Order): number {
+            return order.Books.length > 0 ? order.Books.map(book => book.Order_book.amount*book.price).reduce((a, b) => a + b) : 0;
+        },
+
+        async getOrdersOfLoggedUSer(): Promise<void> {
+            this.loading = true;
+            const res = await axios.get(`${API_URL}/orders/getOrdersOfLoggedUser`, {
+                headers: {
+                    authorization: localStorage.getItem('user_token')
+                }
+            });
+            this.orders = res.data.orders;
+            this.loading = false;
+        },
+
         async signUp(name:string, email:string, password:string): Promise<any> {
             this.loading = true;
             const res = await axios.post(`${API_URL}/users`, {name, email, password});

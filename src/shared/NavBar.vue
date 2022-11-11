@@ -60,6 +60,11 @@
         router.push('/login')
     }
 
+    const goMyOrders = () => {
+        displayUserOptions();
+        router.push('/my_orders')
+    }
+
     const goCart = () => {
         router.push('/cart')
     }
@@ -76,9 +81,9 @@
 <template>
     <nav class="bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600 navBar">
         <div class="container flex flex-wrap justify-between items-stretch mx-auto">
-        <a href="https://flowbite.com/" class="flex items-center">
-            <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo">
-            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+        <a href="#" class="flex items-center">
+            <img src="../assets/book-logo.png" class="h-12" alt="Books Shop Logo">
+            <span class="self-center text-xl font-semibold whitespace-nowrap text-white">Book Shop</span>
         </a>
         <div v-if="!autenticated" class="flex md:order-2 gap-2">
             <button @click="goSignUp()" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Sign Up</button>
@@ -92,11 +97,11 @@
                     <img src="../assets/arrow-down.png" class="arrow-options" id="arrow-options">
                 </div>
                 <div class="user-options">
-                    <span >My Orders</span>
+                    <span @click="goMyOrders()">My Orders</span>
                     <span @click="logOut()">Log Out</span>
                 </div>
             </div>
-            <div class="cart-area" @click="goCart()" >
+            <div class="cart-area" @click="goCart()">
                 <span class="num-products" id="num-products">{{ bookStore.getNumberBooksCart() }}</span>
                 <img src="../assets/cart-icon.png" class="cart-img">
             </div>
